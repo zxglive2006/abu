@@ -713,12 +713,10 @@ def sample_626():
     6.3 线性代数
 """
 
-# 获取多支股票数据组成panel
+# 获取多支股票数据组成包含MultiIndex的DataFrame
 my_stock_df = ABuSymbolPd.make_kl_df(
     ['usBIDU', 'usGOOG', 'usFB', 'usAAPL', 'us.IXIC'], n_folds=2)
-# 变换轴向，形成新的切面
-my_stock_df = my_stock_df.swapaxes('items', 'minor')
-my_stock_df_close = my_stock_df['close'].dropna(axis=0)
+my_stock_df_close = my_stock_df['close'].unstack(0)
 
 
 def regular_std(group):
